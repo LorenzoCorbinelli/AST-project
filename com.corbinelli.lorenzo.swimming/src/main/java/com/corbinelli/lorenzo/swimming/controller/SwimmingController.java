@@ -1,5 +1,7 @@
 package com.corbinelli.lorenzo.swimming.controller;
 
+import com.corbinelli.lorenzo.swimming.model.Swimmer;
+
 public class SwimmingController {
 
 	private SwimmerView swimmerView;
@@ -12,6 +14,16 @@ public class SwimmingController {
 	
 	public void allSwimmers() {
 		swimmerView.showAllSwimmers(swimmerRepository.findAll());
+	}
+
+	public void newSwimmer(Swimmer swimmer) {
+		Swimmer existingSwimmer = swimmerRepository.findById(swimmer.getId());
+		if(existingSwimmer != null) {
+			swimmerView.showError("Already existing swimmer with id " + swimmer.getId(), existingSwimmer);
+			return;
+		}
+		swimmerRepository.save(swimmer);
+		swimmerView.swimmerAdded(swimmer);
 	}
 
 }

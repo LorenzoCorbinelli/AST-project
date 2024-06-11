@@ -8,4 +8,8 @@ public interface SwimmerRepository {
 
 	public List<Swimmer> findAll();
 
+	public Swimmer findById(String id);
+
+	public void save(Swimmer swimmer);
+
 }
