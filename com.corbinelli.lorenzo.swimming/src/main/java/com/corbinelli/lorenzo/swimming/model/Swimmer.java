@@ -16,6 +16,10 @@ public class Swimmer {
 		this.mainStroke = mainStroke;
 	}
 
+	public Swimmer() {
+		
+	}
+
 	public String getId() {
 		return id;
 	}
