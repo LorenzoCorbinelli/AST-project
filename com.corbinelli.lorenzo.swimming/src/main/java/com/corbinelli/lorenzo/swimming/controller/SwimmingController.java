@@ -17,6 +17,11 @@ public class SwimmingController {
 	}
 
 	public void newSwimmer(Swimmer swimmer) {
+		Swimmer existingSwimmer = swimmerRepository.findById(swimmer.getId());
+		if(existingSwimmer != null) {
+			swimmerView.showError("Already existing swimmer with id " + swimmer.getId(), existingSwimmer);
+			return;
+		}
 		swimmerRepository.save(swimmer);
 		swimmerView.swimmerAdded(swimmer);
 	}
