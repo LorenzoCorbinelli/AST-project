@@ -26,4 +26,4 @@ jobs:
         restore-keys: ${{runner.os}}-m2-
     - name: Build with Maven
       run: mvn verify
-      working-directory: com.corbinelli.swimming
+      working-directory: com.corbinelli.lorenzo.swimming
