@@ -10,4 +10,6 @@ public interface SwimmerView {
 
 	public void swimmerAdded(Swimmer swimmer);
 
+	public void showError(String message, Swimmer swimmer);
+
 }
