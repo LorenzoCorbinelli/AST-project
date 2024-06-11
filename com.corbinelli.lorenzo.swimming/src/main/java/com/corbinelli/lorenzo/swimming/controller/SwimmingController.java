@@ -27,6 +27,10 @@ public class SwimmingController {
 	}
 
 	public void deleteSwimmer(Swimmer swimmer) {
+		if(swimmerRepository.findById(swimmer.getId()) == null) {
+			swimmerView.showError("No existing swimmer with id " + swimmer.getId(), swimmer);
+			return;
+		}
 		swimmerRepository.delete(swimmer.getId());
 		swimmerView.swimmerRemoved(swimmer);
 	}
