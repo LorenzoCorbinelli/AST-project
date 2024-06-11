@@ -6,6 +6,8 @@ import com.corbinelli.lorenzo.swimming.model.Swimmer;
 
 public interface SwimmerView {
 
-	void showAllSwimmers(List<Swimmer> swimmers);
+	public void showAllSwimmers(List<Swimmer> swimmers);
+
+	public void swimmerAdded(Swimmer swimmer);
 
 }
