@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [11, 17]
+        include:
+          - java: 11
+            additional-maven-args: "-Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report"
+          - java: 17
 
     name: Build with Java ${{matrix.java}}
     steps:
@@ -25,5 +28,7 @@ jobs:
         key: ${{runner.os}}-m2-${{hashFiles('**/pom.xml', '**/*.yml')}}
         restore-keys: ${{runner.os}}-m2-
     - name: Build with Maven
-      run: mvn verify
+      run: mvn verify ${{matrix.additional-maven-args}}
+      env:
+        COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_TOKEN}}
       working-directory: com.corbinelli.lorenzo.swimming
