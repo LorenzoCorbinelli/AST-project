@@ -17,6 +17,8 @@ public class SwimmingController {
 	}
 
 	public void newSwimmer(Swimmer swimmer) {
+		swimmerRepository.save(swimmer);
+		swimmerView.swimmerAdded(swimmer);
 	}
 
 }
