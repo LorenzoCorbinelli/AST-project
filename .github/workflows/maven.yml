@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        incldue:
+        include:
           - java: 11
             additional-maven-args: "-Pjacoco"
           - java: 17
