@@ -69,5 +69,24 @@ public class SwimmingControllerTest {
 		verify(swimmerView).showError("Already existing swimmer with id 1", existingSwimmer);
 		verifyNoMoreInteractions(ignoreStubs(swimmerRepository));
 	}
+	
+	@Test
+	public void testDeleteSwimmerWhenItExists() {
+		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
+		when(swimmerRepository.findById("1")).thenReturn(swimmer);
+		swimmingController.deleteSwimmer(swimmer);
+		InOrder inOrder = inOrder(swimmerRepository, swimmerView);
+		inOrder.verify(swimmerRepository).delete("1");
+		inOrder.verify(swimmerView).swimmerRemoved(swimmer);
+	}
+	
+	@Test
+	public void testDeleteSwimmerWhenItDoesNotExists() {
+		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
+		when(swimmerRepository.findById("1")).thenReturn(null);
+		swimmingController.deleteSwimmer(swimmer);
+		verify(swimmerView).showError("No existing swimmer with id 1", swimmer);
+		verifyNoMoreInteractions(ignoreStubs(swimmerRepository));
+	}
 
 }

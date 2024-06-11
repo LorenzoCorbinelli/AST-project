@@ -12,4 +12,6 @@ public interface SwimmerView {
 
 	public void showError(String message, Swimmer swimmer);
 
+	public void swimmerRemoved(Swimmer swimmer);
+
 }
