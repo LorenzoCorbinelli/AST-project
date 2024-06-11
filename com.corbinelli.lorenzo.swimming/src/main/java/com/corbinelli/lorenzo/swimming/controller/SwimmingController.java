@@ -27,7 +27,8 @@ public class SwimmingController {
 	}
 
 	public void deleteSwimmer(Swimmer swimmer) {
-		
+		swimmerRepository.delete(swimmer.getId());
+		swimmerView.swimmerRemoved(swimmer);
 	}
 
 }
