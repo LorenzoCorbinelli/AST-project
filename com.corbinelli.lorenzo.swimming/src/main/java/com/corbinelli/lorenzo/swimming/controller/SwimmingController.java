@@ -26,4 +26,8 @@ public class SwimmingController {
 		swimmerView.swimmerAdded(swimmer);
 	}
 
+	public void deleteSwimmer(Swimmer swimmer) {
+		
+	}
+
 }

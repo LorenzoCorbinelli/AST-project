@@ -12,4 +12,6 @@ public interface SwimmerRepository {
 
 	public void save(Swimmer swimmer);
 
+	public void delete(String id);
+
 }
