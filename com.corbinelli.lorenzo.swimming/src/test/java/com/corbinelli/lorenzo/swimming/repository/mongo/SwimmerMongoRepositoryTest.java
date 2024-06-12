@@ -10,6 +10,7 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.testcontainers.containers.MongoDBContainer;
 
+import com.corbinelli.lorenzo.swimming.model.Swimmer;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
@@ -45,6 +46,25 @@ public class SwimmerMongoRepositoryTest {
 	@Test
 	public void testFindAllWithEmptyDB() {
 		assertThat(swimmerRepository.findAll()).isEmpty();
+	}
+	
+	@Test
+	public void testFindAllWithSomeSwimmersInTheDB() {
+		addTestSwimmerToTheDB("1", "test1", "testGender", "testStroke");
+		addTestSwimmerToTheDB("2", "test2", "testGender", "testStroke");
+		assertThat(swimmerRepository.findAll()).containsExactly(
+				new Swimmer("1", "test1", "testGender", "testStroke"),
+				new Swimmer("2", "test2", "testGender", "testStroke"));
+	}
+	
+	private void addTestSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
+		swimmerCollection.insertOne(
+				new Document()
+					.append("id", id)
+					.append("name", name)
+					.append("gender", gender)
+					.append("mainStroke", mainStroke)
+				);
 	}
 
 }
