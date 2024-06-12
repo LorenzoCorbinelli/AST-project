@@ -52,7 +52,7 @@ public class SwimmerMongoRepository implements SwimmerRepository {
 
 	@Override
 	public void delete(String id) {
-		
+		swimmerCollection.deleteOne(Filters.eq("id", id));
 	}
 
 }
