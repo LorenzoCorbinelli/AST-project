@@ -10,6 +10,7 @@ import com.corbinelli.lorenzo.swimming.model.Swimmer;
 import com.corbinelli.lorenzo.swimming.repository.SwimmerRepository;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 
 public class SwimmerMongoRepository implements SwimmerRepository {
 	
@@ -23,12 +24,19 @@ public class SwimmerMongoRepository implements SwimmerRepository {
 	public List<Swimmer> findAll() {
 		return StreamSupport
 				.stream(swimmerCollection.find().spliterator(), false)
-				.map(d -> new Swimmer(""+d.get("id"), ""+d.get("name"), ""+d.get("gender"), ""+d.get("mainStroke")))
+				.map(this::fromDocumentToSwimmer)
 				.collect(Collectors.toList());
+	}
+
+	private Swimmer fromDocumentToSwimmer(Document d) {
+		return new Swimmer(""+d.get("id"), ""+d.get("name"), ""+d.get("gender"), ""+d.get("mainStroke"));
 	}
 
 	@Override
 	public Swimmer findById(String id) {
+		Document document = swimmerCollection.find(Filters.eq("id", id)).first();
+		if(document != null)
+			return fromDocumentToSwimmer(document);
 		return null;
 	}
 
