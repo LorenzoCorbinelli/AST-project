@@ -66,5 +66,10 @@ public class SwimmerMongoRepositoryTest {
 					.append("mainStroke", mainStroke)
 				);
 	}
+	
+	@Test
+	public void testFindByIdNotFound() {
+		assertThat(swimmerRepository.findById("1")).isNull();
+	}
 
 }
