@@ -80,6 +80,13 @@ public class SwimmerMongoRepositoryTest {
 		swimmerRepository.save(swimmer);
 		assertThat(readAllSwimmersFromTheDB()).containsExactly(swimmer);
 	}
+	
+	@Test
+	public void testDelete() {
+		addTestSwimmerToTheDB("1", "test", "testGender", "testStroke");
+		swimmerRepository.delete("1");
+		assertThat(readAllSwimmersFromTheDB()).isEmpty();;
+	}
 
 	private void addTestSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
 		swimmerCollection.insertOne(
