@@ -3,6 +3,10 @@ package com.corbinelli.lorenzo.swimming.repository.mongo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.bson.Document;
 import org.junit.After;
 import org.junit.Before;
@@ -69,6 +73,13 @@ public class SwimmerMongoRepositoryTest {
 		assertThat(swimmerRepository.findById("2"))
 			.isEqualTo(new Swimmer("2", "toBeFound", "testGender", "testStroke"));
 	}
+	
+	@Test
+	public void testSave() {
+		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
+		swimmerRepository.save(swimmer);
+		assertThat(readAllSwimmersFromTheDB()).containsExactly(swimmer);
+	}
 
 	private void addTestSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
 		swimmerCollection.insertOne(
@@ -78,5 +89,11 @@ public class SwimmerMongoRepositoryTest {
 				.append("gender", gender)
 				.append("mainStroke", mainStroke)
 				);
+	}
+	
+	private List<Swimmer> readAllSwimmersFromTheDB() {
+		return StreamSupport.stream(swimmerCollection.find().spliterator(), false)
+				.map(d -> new Swimmer(""+d.get("id"), ""+d.get("name"), ""+d.get("gender"), ""+d.get("mainStroke")))
+				.collect(Collectors.toList());
 	}
 }
