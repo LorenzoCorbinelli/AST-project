@@ -1,4 +1,4 @@
-package com.corbinelli.lorenzo.swimming.controller;
+package com.corbinelli.lorenzo.swimming.view;
 
 import java.util.List;
 

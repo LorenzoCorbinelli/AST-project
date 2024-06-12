@@ -18,6 +18,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.corbinelli.lorenzo.swimming.model.Swimmer;
+import com.corbinelli.lorenzo.swimming.repository.SwimmerRepository;
+import com.corbinelli.lorenzo.swimming.view.SwimmerView;
 
 public class SwimmingControllerTest {
 	

@@ -1,6 +1,8 @@
 package com.corbinelli.lorenzo.swimming.controller;
 
 import com.corbinelli.lorenzo.swimming.model.Swimmer;
+import com.corbinelli.lorenzo.swimming.repository.SwimmerRepository;
+import com.corbinelli.lorenzo.swimming.view.SwimmerView;
 
 public class SwimmingController {
 
