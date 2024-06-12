@@ -1,5 +1,6 @@
 package com.corbinelli.lorenzo.swimming.repository.mongo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.bson.Document;
@@ -19,7 +20,7 @@ public class SwimmerMongoRepository implements SwimmerRepository {
 
 	@Override
 	public List<Swimmer> findAll() {
-		return null;
+		return Collections.emptyList();
 	}
 
 	@Override
