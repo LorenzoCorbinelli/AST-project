@@ -1,7 +1,8 @@
 package com.corbinelli.lorenzo.swimming.repository.mongo;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.bson.Document;
 
@@ -20,7 +21,10 @@ public class SwimmerMongoRepository implements SwimmerRepository {
 
 	@Override
 	public List<Swimmer> findAll() {
-		return Collections.emptyList();
+		return StreamSupport
+				.stream(swimmerCollection.find().spliterator(), false)
+				.map(d -> new Swimmer(""+d.get("id"), ""+d.get("name"), ""+d.get("gender"), ""+d.get("mainStroke")))
+				.collect(Collectors.toList());
 	}
 
 	@Override
