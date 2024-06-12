@@ -42,7 +42,12 @@ public class SwimmerMongoRepository implements SwimmerRepository {
 
 	@Override
 	public void save(Swimmer swimmer) {
-		
+		swimmerCollection.insertOne(
+				new Document()
+					.append("id", swimmer.getId())
+					.append("name", swimmer.getName())
+					.append("gender", swimmer.getGender())
+					.append("mainStroke", swimmer.getMainStroke()));
 	}
 
 	@Override
