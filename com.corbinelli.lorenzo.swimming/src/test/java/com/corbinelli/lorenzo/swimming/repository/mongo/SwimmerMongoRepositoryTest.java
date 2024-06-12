@@ -57,19 +57,26 @@ public class SwimmerMongoRepositoryTest {
 				new Swimmer("2", "test2", "testGender", "testStroke"));
 	}
 	
-	private void addTestSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
-		swimmerCollection.insertOne(
-				new Document()
-					.append("id", id)
-					.append("name", name)
-					.append("gender", gender)
-					.append("mainStroke", mainStroke)
-				);
-	}
-	
 	@Test
 	public void testFindByIdNotFound() {
 		assertThat(swimmerRepository.findById("1")).isNull();
 	}
+	
+	@Test
+	public void testFindByIdFound() {
+		addTestSwimmerToTheDB("1", "notToBeFound", "testGender", "testStroke");
+		addTestSwimmerToTheDB("2", "toBeFound", "testGender", "testStroke");
+		assertThat(swimmerRepository.findById("2"))
+			.isEqualTo(new Swimmer("2", "toBeFound", "testGender", "testStroke"));
+	}
 
+	private void addTestSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
+		swimmerCollection.insertOne(
+				new Document()
+				.append("id", id)
+				.append("name", name)
+				.append("gender", gender)
+				.append("mainStroke", mainStroke)
+				);
+	}
 }
