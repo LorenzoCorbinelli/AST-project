@@ -58,5 +58,12 @@ public class SwimmingControllerIT {
 		swimmingController.allSwimmers();
 		verify(swimmerView).showAllSwimmers(asList(swimmer));
 	}
+	
+	@Test
+	public void testNewSwimmer() {
+		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
+		swimmingController.newSwimmer(swimmer);
+		verify(swimmerView).swimmerAdded(swimmer);
+	}
 
 }
