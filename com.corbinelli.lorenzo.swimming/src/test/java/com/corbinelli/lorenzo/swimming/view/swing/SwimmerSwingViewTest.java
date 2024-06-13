@@ -43,5 +43,6 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 			.containsExactly("Freestyle", "Backstroke", "Breaststroke", "Butterfly", "Mixed");
 		window.button(JButtonMatcher.withText("Add")).requireDisabled();
 		window.list("swimmerList");
+		window.button(JButtonMatcher.withText("Remove Swimmer")).requireDisabled();
 	}
 }
