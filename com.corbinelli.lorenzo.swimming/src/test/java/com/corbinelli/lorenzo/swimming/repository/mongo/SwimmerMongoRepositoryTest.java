@@ -85,7 +85,7 @@ public class SwimmerMongoRepositoryTest {
 	public void testDelete() {
 		addTestSwimmerToTheDB("1", "test", "testGender", "testStroke");
 		swimmerRepository.delete("1");
-		assertThat(readAllSwimmersFromTheDB()).isEmpty();;
+		assertThat(readAllSwimmersFromTheDB()).isEmpty();
 	}
 
 	private void addTestSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
