@@ -3,6 +3,7 @@ package com.corbinelli.lorenzo.swimming.view.swing;
 import java.awt.EventQueue;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +15,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import javax.swing.JRadioButton;
 
 public class SwimmerSwingView extends JFrame implements SwimmerView {
 
@@ -22,6 +24,9 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private JTextField txtId;
 	private JLabel lblName;
 	private JTextField txtName;
+	private JLabel lblGender;
+	private JRadioButton rdBtnMale;
+	private JRadioButton rdBtnFemale;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,9 +50,9 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -62,6 +67,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		txtId = new JTextField();
 		txtId.setName("idTextBox");
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
+		gbc_txtId.gridwidth = 2;
 		gbc_txtId.insets = new Insets(0, 0, 5, 0);
 		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtId.gridx = 3;
@@ -80,12 +86,40 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		txtName = new JTextField();
 		txtName.setName("nameTextBox");
 		GridBagConstraints gbc_txtName = new GridBagConstraints();
+		gbc_txtName.gridwidth = 2;
 		gbc_txtName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtName.gridx = 3;
 		gbc_txtName.gridy = 1;
 		contentPane.add(txtName, gbc_txtName);
 		txtName.setColumns(10);
+		
+		lblGender = new JLabel("gender");
+		GridBagConstraints gbc_lblGender = new GridBagConstraints();
+		gbc_lblGender.anchor = GridBagConstraints.EAST;
+		gbc_lblGender.insets = new Insets(0, 0, 0, 5);
+		gbc_lblGender.gridx = 2;
+		gbc_lblGender.gridy = 2;
+		contentPane.add(lblGender, gbc_lblGender);
+		
+		rdBtnMale = new JRadioButton("Male");
+		rdBtnMale.setName("rdBtnMale");
+		GridBagConstraints gbc_rdBtnMale = new GridBagConstraints();
+		gbc_rdBtnMale.insets = new Insets(0, 0, 0, 5);
+		gbc_rdBtnMale.gridx = 3;
+		gbc_rdBtnMale.gridy = 2;
+		contentPane.add(rdBtnMale, gbc_rdBtnMale);
+		
+		rdBtnFemale = new JRadioButton("Female");
+		rdBtnFemale.setName("rdBtnFemale");
+		GridBagConstraints gbc_rdBtnFemale = new GridBagConstraints();
+		gbc_rdBtnFemale.gridx = 4;
+		gbc_rdBtnFemale.gridy = 2;
+		contentPane.add(rdBtnFemale, gbc_rdBtnFemale);
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(rdBtnMale);
+		buttonGroup.add(rdBtnFemale);
 	}
 
 	@Override
