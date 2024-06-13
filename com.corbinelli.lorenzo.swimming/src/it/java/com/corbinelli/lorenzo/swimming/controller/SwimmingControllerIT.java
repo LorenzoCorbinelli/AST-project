@@ -65,5 +65,13 @@ public class SwimmingControllerIT {
 		swimmingController.newSwimmer(swimmer);
 		verify(swimmerView).swimmerAdded(swimmer);
 	}
+	
+	@Test
+	public void testDeleteSwimmer() {
+		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
+		swimmerRepository.save(swimmer);
+		swimmingController.deleteSwimmer(swimmer);
+		verify(swimmerView).swimmerRemoved(swimmer);
+	}
 
 }
