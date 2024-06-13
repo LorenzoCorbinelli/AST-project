@@ -3,6 +3,7 @@ package com.corbinelli.lorenzo.swimming.view.swing;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.assertj.swing.core.matcher.JButtonMatcher;
 import org.assertj.swing.core.matcher.JLabelMatcher;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
@@ -40,5 +41,6 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.comboBox("strokes").requireEnabled();
 		assertThat(window.comboBox("strokes").contents())
 			.containsExactly("Freestyle", "Backstroke", "Breaststroke", "Butterfly", "Mixed");
+		window.button(JButtonMatcher.withText("Add")).requireDisabled();
 	}
 }
