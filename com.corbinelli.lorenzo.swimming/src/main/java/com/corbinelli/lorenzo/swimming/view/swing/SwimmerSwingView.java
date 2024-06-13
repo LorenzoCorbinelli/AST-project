@@ -1,5 +1,6 @@
 package com.corbinelli.lorenzo.swimming.view.swing;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private JScrollPane scrollPane;
 	private JList<Swimmer> swimmerList;
 	private JButton btnRemoveSwimmer;
+	private JLabel errorMessageLabel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -61,9 +63,9 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 120, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblId = new JLabel("id");
@@ -175,10 +177,20 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		btnRemoveSwimmer.setEnabled(false);
 		GridBagConstraints gbc_btnRemoveSwimmer = new GridBagConstraints();
 		gbc_btnRemoveSwimmer.gridwidth = 5;
-		gbc_btnRemoveSwimmer.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRemoveSwimmer.insets = new Insets(0, 0, 5, 5);
 		gbc_btnRemoveSwimmer.gridx = 1;
 		gbc_btnRemoveSwimmer.gridy = 7;
 		contentPane.add(btnRemoveSwimmer, gbc_btnRemoveSwimmer);
+		
+		errorMessageLabel = new JLabel(" ");
+		errorMessageLabel.setName("errorMessageLabel");
+		errorMessageLabel.setForeground(Color.RED);
+		GridBagConstraints gbc_errorMessageLabel = new GridBagConstraints();
+		gbc_errorMessageLabel.gridwidth = 7;
+		gbc_errorMessageLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_errorMessageLabel.gridx = 0;
+		gbc_errorMessageLabel.gridy = 8;
+		contentPane.add(errorMessageLabel, gbc_errorMessageLabel);
 	}
 
 	@Override
