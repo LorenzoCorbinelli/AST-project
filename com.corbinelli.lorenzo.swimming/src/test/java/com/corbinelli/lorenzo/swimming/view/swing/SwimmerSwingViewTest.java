@@ -34,5 +34,7 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.label(JLabelMatcher.withText("gender"));
 		window.radioButton("rdBtnMale").requireEnabled();
 		window.radioButton("rdBtnFemale").requireEnabled();
+		window.label(JLabelMatcher.withText("main stroke"));
+		window.comboBox("strokes").requireEnabled();
 	}
 }
