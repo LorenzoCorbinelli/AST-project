@@ -44,5 +44,6 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.button(JButtonMatcher.withText("Add")).requireDisabled();
 		window.list("swimmerList");
 		window.button(JButtonMatcher.withText("Remove Swimmer")).requireDisabled();
+		window.label("errorMessageLabel").requireText(" ");
 	}
 }
