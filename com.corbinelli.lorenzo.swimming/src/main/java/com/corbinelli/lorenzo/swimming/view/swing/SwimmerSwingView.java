@@ -36,6 +36,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private JButton btnAdd;
 	private JScrollPane scrollPane;
 	private JList<Swimmer> swimmerList;
+	private JButton btnRemoveSwimmer;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,16 +54,16 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	public SwimmerSwingView() {
 		setTitle("Swimming App");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 448);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 120, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblId = new JLabel("id");
@@ -158,9 +159,10 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.anchor = GridBagConstraints.NORTH;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridwidth = 6;
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 6;
 		contentPane.add(scrollPane, gbc_scrollPane);
@@ -168,6 +170,15 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		swimmerList = new JList<>();
 		swimmerList.setName("swimmerList");
 		scrollPane.setColumnHeaderView(swimmerList);
+		
+		btnRemoveSwimmer = new JButton("Remove Swimmer");
+		btnRemoveSwimmer.setEnabled(false);
+		GridBagConstraints gbc_btnRemoveSwimmer = new GridBagConstraints();
+		gbc_btnRemoveSwimmer.gridwidth = 5;
+		gbc_btnRemoveSwimmer.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRemoveSwimmer.gridx = 1;
+		gbc_btnRemoveSwimmer.gridy = 7;
+		contentPane.add(btnRemoveSwimmer, gbc_btnRemoveSwimmer);
 	}
 
 	@Override
