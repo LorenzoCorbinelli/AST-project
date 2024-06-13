@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 public class SwimmerSwingView extends JFrame implements SwimmerView {
 
@@ -30,6 +31,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private JRadioButton rdBtnFemale;
 	private JLabel lblMainStroke;
 	private JComboBox<String> combBoxStrokes;
+	private JButton btnAdd;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,9 +56,9 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblId = new JLabel("id");
@@ -129,7 +131,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		lblMainStroke = new JLabel("main stroke");
 		GridBagConstraints gbc_lblMainStroke = new GridBagConstraints();
 		gbc_lblMainStroke.anchor = GridBagConstraints.EAST;
-		gbc_lblMainStroke.insets = new Insets(0, 0, 0, 5);
+		gbc_lblMainStroke.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMainStroke.gridx = 2;
 		gbc_lblMainStroke.gridy = 3;
 		contentPane.add(lblMainStroke, gbc_lblMainStroke);
@@ -138,12 +140,21 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		combBoxStrokes = new JComboBox<>(strokes);
 		combBoxStrokes.setName("strokes");
 		GridBagConstraints gbc_combBoxStrokes = new GridBagConstraints();
+		gbc_combBoxStrokes.insets = new Insets(0, 0, 5, 0);
 		gbc_combBoxStrokes.gridwidth = 2;
-		gbc_combBoxStrokes.insets = new Insets(0, 0, 0, 5);
 		gbc_combBoxStrokes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_combBoxStrokes.gridx = 3;
 		gbc_combBoxStrokes.gridy = 3;
 		contentPane.add(combBoxStrokes, gbc_combBoxStrokes);
+		
+		btnAdd = new JButton("Add");
+		btnAdd.setEnabled(false);
+		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+		gbc_btnAdd.gridwidth = 2;
+		gbc_btnAdd.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAdd.gridx = 3;
+		gbc_btnAdd.gridy = 5;
+		contentPane.add(btnAdd, gbc_btnAdd);
 	}
 
 	@Override
