@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
 
 public class SwimmerSwingView extends JFrame implements SwimmerView {
 
@@ -27,6 +28,8 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private JLabel lblGender;
 	private JRadioButton rdBtnMale;
 	private JRadioButton rdBtnFemale;
+	private JLabel lblMainStroke;
+	private JComboBox<String> combBoxStrokes;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,13 +54,14 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblId = new JLabel("id");
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
+		gbc_lblId.anchor = GridBagConstraints.EAST;
 		gbc_lblId.fill = GridBagConstraints.VERTICAL;
 		gbc_lblId.insets = new Insets(0, 0, 5, 5);
 		gbc_lblId.gridx = 2;
@@ -97,7 +101,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		lblGender = new JLabel("gender");
 		GridBagConstraints gbc_lblGender = new GridBagConstraints();
 		gbc_lblGender.anchor = GridBagConstraints.EAST;
-		gbc_lblGender.insets = new Insets(0, 0, 0, 5);
+		gbc_lblGender.insets = new Insets(0, 0, 5, 5);
 		gbc_lblGender.gridx = 2;
 		gbc_lblGender.gridy = 2;
 		contentPane.add(lblGender, gbc_lblGender);
@@ -105,7 +109,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		rdBtnMale = new JRadioButton("Male");
 		rdBtnMale.setName("rdBtnMale");
 		GridBagConstraints gbc_rdBtnMale = new GridBagConstraints();
-		gbc_rdBtnMale.insets = new Insets(0, 0, 0, 5);
+		gbc_rdBtnMale.insets = new Insets(0, 0, 5, 5);
 		gbc_rdBtnMale.gridx = 3;
 		gbc_rdBtnMale.gridy = 2;
 		contentPane.add(rdBtnMale, gbc_rdBtnMale);
@@ -113,6 +117,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		rdBtnFemale = new JRadioButton("Female");
 		rdBtnFemale.setName("rdBtnFemale");
 		GridBagConstraints gbc_rdBtnFemale = new GridBagConstraints();
+		gbc_rdBtnFemale.insets = new Insets(0, 0, 5, 0);
 		gbc_rdBtnFemale.gridx = 4;
 		gbc_rdBtnFemale.gridy = 2;
 		contentPane.add(rdBtnFemale, gbc_rdBtnFemale);
@@ -120,6 +125,25 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(rdBtnMale);
 		buttonGroup.add(rdBtnFemale);
+		
+		lblMainStroke = new JLabel("main stroke");
+		GridBagConstraints gbc_lblMainStroke = new GridBagConstraints();
+		gbc_lblMainStroke.anchor = GridBagConstraints.EAST;
+		gbc_lblMainStroke.insets = new Insets(0, 0, 0, 5);
+		gbc_lblMainStroke.gridx = 2;
+		gbc_lblMainStroke.gridy = 3;
+		contentPane.add(lblMainStroke, gbc_lblMainStroke);
+		
+		String[] strokes = {"Freestyle", "Backstroke", "Breaststroke", "Butterfly", "Mixed"};
+		combBoxStrokes = new JComboBox<>(strokes);
+		combBoxStrokes.setName("strokes");
+		GridBagConstraints gbc_combBoxStrokes = new GridBagConstraints();
+		gbc_combBoxStrokes.gridwidth = 2;
+		gbc_combBoxStrokes.insets = new Insets(0, 0, 0, 5);
+		gbc_combBoxStrokes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_combBoxStrokes.gridx = 3;
+		gbc_combBoxStrokes.gridy = 3;
+		contentPane.add(combBoxStrokes, gbc_combBoxStrokes);
 	}
 
 	@Override
