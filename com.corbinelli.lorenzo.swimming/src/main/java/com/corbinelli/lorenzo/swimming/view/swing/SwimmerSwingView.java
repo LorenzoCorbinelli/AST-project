@@ -125,6 +125,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		contentPane.add(lblGender, gbc_lblGender);
 		
 		rdBtnMale = new JRadioButton("Male");
+		rdBtnMale.setActionCommand("Male");
 		rdBtnMale.setSelected(true);
 		rdBtnMale.setName("rdBtnMale");
 		GridBagConstraints gbc_rdBtnMale = new GridBagConstraints();
@@ -137,6 +138,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		buttonGroup.add(rdBtnMale);
 		
 		rdBtnFemale = new JRadioButton("Female");
+		rdBtnFemale.setActionCommand("Female");
 		rdBtnFemale.addKeyListener(btnAddEnabler);
 		rdBtnFemale.setName("rdBtnFemale");
 		GridBagConstraints gbc_rdBtnFemale = new GridBagConstraints();
@@ -166,16 +168,11 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		
 		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(e -> {
-			String gender;
-			if(rdBtnMale.isSelected())
-				gender = "Male";
-			else
-				gender = "Female";
 			swimmingController.newSwimmer(
 					new Swimmer(
 							txtId.getText(), 
 							txtName.getText(), 
-							gender, 
+							buttonGroup.getSelection().getActionCommand(), 
 							combBoxStrokes.getItemAt(combBoxStrokes.getSelectedIndex())));
 		});
 		btnAdd.setEnabled(false);
