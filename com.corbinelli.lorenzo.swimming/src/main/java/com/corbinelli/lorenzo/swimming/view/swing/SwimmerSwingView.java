@@ -83,8 +83,8 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				btnAdd.setEnabled(
-						!txtId.getText().isEmpty() && 
-						!txtName.getText().isEmpty());
+						!txtId.getText().trim().isEmpty() && 
+						!txtName.getText().trim().isEmpty());
 			}
 		};
 		txtId.addKeyListener(btnAddEnabler);
