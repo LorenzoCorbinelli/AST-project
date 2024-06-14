@@ -163,6 +163,6 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		});
 		window.list("swimmerList").selectItem(1);
 		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
-		verify(swimmingController).deleteSwimmer(new Swimmer("2", "test2", "testGender", "testStroke"));
+		verify(swimmingController).deleteSwimmer(swimmer2);
 	}
 }

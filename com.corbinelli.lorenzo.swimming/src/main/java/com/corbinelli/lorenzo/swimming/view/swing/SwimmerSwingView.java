@@ -219,6 +219,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		scrollPane.setColumnHeaderView(swimmerList);
 		
 		btnRemoveSwimmer = new JButton("Remove Swimmer");
+		btnRemoveSwimmer.addActionListener(e -> swimmingController.deleteSwimmer(swimmerList.getSelectedValue()));
 		btnRemoveSwimmer.setEnabled(false);
 		GridBagConstraints gbc_btnRemoveSwimmer = new GridBagConstraints();
 		gbc_btnRemoveSwimmer.gridwidth = 5;
