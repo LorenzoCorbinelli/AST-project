@@ -106,4 +106,11 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		assertThat(contents).containsExactly(swimmer.toString());
 		window.label("errorMessageLabel").requireText(" ");
 	}
+	
+	@Test
+	public void testSwimmerShowErrorShouldSetTheMessageInTheErrorLabel() {
+		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> swimmerSwingView.showError("error message", swimmer));
+		window.label("errorMessageLabel").requireText("error message: " + swimmer);
+	}
 }
