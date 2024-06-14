@@ -3,6 +3,7 @@ package com.corbinelli.lorenzo.swimming.view.swing;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 import org.assertj.swing.annotation.GUITest;
 import org.assertj.swing.core.matcher.JButtonMatcher;
@@ -15,7 +16,10 @@ import org.assertj.swing.junit.runner.GUITestRunner;
 import org.assertj.swing.junit.testcase.AssertJSwingJUnitTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
+import com.corbinelli.lorenzo.swimming.controller.SwimmingController;
 import com.corbinelli.lorenzo.swimming.model.Swimmer;
 
 @RunWith(GUITestRunner.class)
@@ -23,15 +27,25 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 	
 	private FrameFixture window;
 	private SwimmerSwingView swimmerSwingView;
+	@Mock
+	private SwimmingController swimmingController;
+	private AutoCloseable closeable;
 
 	@Override
 	protected void onSetUp() throws Exception {
+		closeable = MockitoAnnotations.openMocks(this);
 		GuiActionRunner.execute(() -> {
 			swimmerSwingView = new SwimmerSwingView();
+			swimmerSwingView.setSwimmingController(swimmingController);
 			return swimmerSwingView;
 		});
 		window = new FrameFixture(robot(), swimmerSwingView);
 		window.show();
+	}
+	
+	@Override
+	protected void onTearDown() throws Exception {
+		closeable.close();
 	}
 
 	@Test @GUITest
@@ -127,5 +141,15 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		String[] contents = window.list("swimmerList").contents();
 		assertThat(contents).containsExactly(swimmer1.toString());
 		window.label("errorMessageLabel").requireText(" ");
+	}
+	
+	@Test
+	public void testAddButtonShouldCallTheNewSwimmerMethodOfTheController() {
+		window.textBox("idTextBox").enterText("1");
+		window.textBox("nameTextBox").enterText("test");
+		window.radioButton("rdBtnFemale").click();
+		window.comboBox("strokes").selectItem(1);
+		window.button(JButtonMatcher.withText("Add")).click();
+		verify(swimmingController).newSwimmer(new Swimmer("1", "test", "Female", "Backstoke"));
 	}
 }

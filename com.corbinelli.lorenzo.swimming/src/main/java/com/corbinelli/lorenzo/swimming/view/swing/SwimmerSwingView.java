@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.corbinelli.lorenzo.swimming.controller.SwimmingController;
 import com.corbinelli.lorenzo.swimming.model.Swimmer;
 import com.corbinelli.lorenzo.swimming.view.SwimmerView;
 import java.awt.GridBagLayout;
@@ -44,6 +45,12 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private DefaultListModel<Swimmer> listSwimmerModel;
 	private JButton btnRemoveSwimmer;
 	private JLabel errorMessageLabel;
+	
+	private SwimmingController swimmingController;
+
+	public void setSwimmingController(SwimmingController swimmingController) {
+		this.swimmingController = swimmingController;
+	}
 
 	DefaultListModel<Swimmer> getListSwimmerModel() {
 		return listSwimmerModel;
