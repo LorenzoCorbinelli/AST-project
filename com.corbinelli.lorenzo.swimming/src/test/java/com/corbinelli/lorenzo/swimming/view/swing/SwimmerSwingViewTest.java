@@ -8,11 +8,14 @@ import org.assertj.swing.core.matcher.JButtonMatcher;
 import org.assertj.swing.core.matcher.JLabelMatcher;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
+import org.assertj.swing.fixture.JButtonFixture;
 import org.assertj.swing.fixture.JTextComponentFixture;
 import org.assertj.swing.junit.runner.GUITestRunner;
 import org.assertj.swing.junit.testcase.AssertJSwingJUnitTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import com.corbinelli.lorenzo.swimming.model.Swimmer;
 
 @RunWith(GUITestRunner.class)
 public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
@@ -69,5 +72,18 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		idTextBox.enterText("1");
 		nameTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add")).requireDisabled();
+	}
+	
+	@Test
+	public void testRemoveSwimmerShouldBeEnabledOnlyWhenASwimmerIsSelected() {
+		GuiActionRunner.execute(() -> 
+			swimmerSwingView.getListSwimmerModel()
+				.addElement(new Swimmer("1", "test", "testGender", "testStroke")));
+		
+		window.list("swimmerList").selectItem(0);
+		JButtonFixture removeButton = window.button(JButtonMatcher.withText("Remove Swimmer"));
+		removeButton.requireEnabled();
+		window.list("swimmerList").clearSelection();
+		removeButton.requireDisabled();
 	}
 }

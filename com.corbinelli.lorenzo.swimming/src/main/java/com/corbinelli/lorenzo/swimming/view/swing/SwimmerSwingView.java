@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,6 +24,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ListSelectionModel;
 
 public class SwimmerSwingView extends JFrame implements SwimmerView {
 
@@ -39,8 +41,13 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private JButton btnAdd;
 	private JScrollPane scrollPane;
 	private JList<Swimmer> swimmerList;
+	private DefaultListModel<Swimmer> listSwimmerModel;
 	private JButton btnRemoveSwimmer;
 	private JLabel errorMessageLabel;
+
+	DefaultListModel<Swimmer> getListSwimmerModel() {
+		return listSwimmerModel;
+	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -183,7 +190,9 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		gbc_scrollPane.gridy = 6;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
-		swimmerList = new JList<>();
+		listSwimmerModel = new DefaultListModel<>();
+		swimmerList = new JList<>(listSwimmerModel);
+		swimmerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		swimmerList.setName("swimmerList");
 		scrollPane.setColumnHeaderView(swimmerList);
 		
