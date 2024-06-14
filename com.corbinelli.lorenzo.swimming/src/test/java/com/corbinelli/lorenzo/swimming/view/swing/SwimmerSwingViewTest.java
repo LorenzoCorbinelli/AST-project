@@ -150,6 +150,6 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.radioButton("rdBtnFemale").click();
 		window.comboBox("strokes").selectItem(1);
 		window.button(JButtonMatcher.withText("Add")).click();
-		verify(swimmingController).newSwimmer(new Swimmer("1", "test", "Female", "Backstoke"));
+		verify(swimmingController).newSwimmer(new Swimmer("1", "test", "Female", "Backstroke"));
 	}
 }

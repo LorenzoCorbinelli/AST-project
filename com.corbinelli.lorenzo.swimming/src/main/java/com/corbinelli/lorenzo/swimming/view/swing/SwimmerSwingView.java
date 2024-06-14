@@ -179,6 +179,19 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		contentPane.add(combBoxStrokes, gbc_combBoxStrokes);
 		
 		btnAdd = new JButton("Add");
+		btnAdd.addActionListener(e -> {
+			String gender;
+			if(rdBtnMale.isSelected())
+				gender = "Male";
+			else
+				gender = "Female";
+			swimmingController.newSwimmer(
+					new Swimmer(
+							txtId.getText(), 
+							txtName.getText(), 
+							gender, 
+							combBoxStrokes.getItemAt(combBoxStrokes.getSelectedIndex())));
+		});
 		btnAdd.setEnabled(false);
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 5, 5);
