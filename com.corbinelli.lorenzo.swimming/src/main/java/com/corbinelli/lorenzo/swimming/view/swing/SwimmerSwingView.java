@@ -220,7 +220,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 	@Override
 	public void showAllSwimmers(List<Swimmer> swimmers) {
-		
+		swimmers.forEach(listSwimmerModel::addElement);
 	}
 
 	@Override
