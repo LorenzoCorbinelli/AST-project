@@ -1,7 +1,6 @@
 package com.corbinelli.lorenzo.swimming.view.swing;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -54,19 +53,6 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 	DefaultListModel<Swimmer> getListSwimmerModel() {
 		return listSwimmerModel;
-	}
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SwimmerSwingView frame = new SwimmerSwingView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
 	public SwimmerSwingView() {
