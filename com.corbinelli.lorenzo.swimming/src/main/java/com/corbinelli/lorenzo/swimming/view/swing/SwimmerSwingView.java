@@ -192,6 +192,8 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		
 		listSwimmerModel = new DefaultListModel<>();
 		swimmerList = new JList<>(listSwimmerModel);
+		swimmerList.addListSelectionListener(arg0 -> 
+			btnRemoveSwimmer.setEnabled(swimmerList.getSelectedIndex() != -1));
 		swimmerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		swimmerList.setName("swimmerList");
 		scrollPane.setColumnHeaderView(swimmerList);
