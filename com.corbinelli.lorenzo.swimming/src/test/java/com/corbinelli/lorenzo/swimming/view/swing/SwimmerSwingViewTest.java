@@ -3,6 +3,7 @@ package com.corbinelli.lorenzo.swimming.view.swing;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.assertj.swing.annotation.GUITest;
 import org.assertj.swing.core.matcher.JButtonMatcher;
 import org.assertj.swing.core.matcher.JLabelMatcher;
 import org.assertj.swing.edt.GuiActionRunner;
@@ -28,7 +29,7 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.show();
 	}
 
-	@Test
+	@Test @GUITest
 	public void testControlsInitialState() {
 		window.label(JLabelMatcher.withText("id"));
 		window.textBox("idTextBox").requireEnabled();
