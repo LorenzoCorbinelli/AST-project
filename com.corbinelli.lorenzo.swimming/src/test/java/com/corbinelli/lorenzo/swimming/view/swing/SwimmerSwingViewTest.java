@@ -96,4 +96,14 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		String[] contents = window.list("swimmerList").contents();
 		assertThat(contents).containsExactly(swimmer1.toString(), swimmer2.toString());
 	}
+	
+	@Test
+	public void testSwimmerAddedShouldAddTheSwimmerToTheListAndResetTheErrorLabel() {
+		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> 
+			swimmerSwingView.swimmerAdded(new Swimmer("1", "test1", "testGender", "testStroke")));
+		String[] contents = window.list("swimmerList").contents();
+		assertThat(contents).containsExactly(swimmer.toString());
+		window.label("errorMessageLabel").requireText(" ");
+	}
 }
