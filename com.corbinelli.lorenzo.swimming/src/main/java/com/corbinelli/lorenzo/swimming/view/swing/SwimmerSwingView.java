@@ -231,7 +231,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 	@Override
 	public void showError(String message, Swimmer swimmer) {
-		
+		errorMessageLabel.setText(message + ": " + swimmer);
 	}
 
 	@Override
