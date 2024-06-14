@@ -21,6 +21,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SwimmerSwingView extends JFrame implements SwimmerView {
 
@@ -77,6 +79,15 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		contentPane.add(lblId, gbc_lblId);
 		
 		txtId = new JTextField();
+		KeyAdapter btnAddEnabler = new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				btnAdd.setEnabled(
+						!txtId.getText().isEmpty() && 
+						!txtName.getText().isEmpty());
+			}
+		};
+		txtId.addKeyListener(btnAddEnabler);
 		txtId.setName("idTextBox");
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
 		gbc_txtId.gridwidth = 5;
@@ -95,6 +106,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		contentPane.add(lblName, gbc_lblName);
 		
 		txtName = new JTextField();
+		txtName.addKeyListener(btnAddEnabler);
 		txtName.setName("nameTextBox");
 		GridBagConstraints gbc_txtName = new GridBagConstraints();
 		gbc_txtName.gridwidth = 5;
@@ -113,6 +125,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		contentPane.add(lblGender, gbc_lblGender);
 		
 		rdBtnMale = new JRadioButton("Male");
+		rdBtnMale.setSelected(true);
 		rdBtnMale.setName("rdBtnMale");
 		GridBagConstraints gbc_rdBtnMale = new GridBagConstraints();
 		gbc_rdBtnMale.insets = new Insets(0, 0, 5, 5);
@@ -124,6 +137,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		buttonGroup.add(rdBtnMale);
 		
 		rdBtnFemale = new JRadioButton("Female");
+		rdBtnFemale.addKeyListener(btnAddEnabler);
 		rdBtnFemale.setName("rdBtnFemale");
 		GridBagConstraints gbc_rdBtnFemale = new GridBagConstraints();
 		gbc_rdBtnFemale.insets = new Insets(0, 0, 5, 5);
