@@ -152,4 +152,17 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.button(JButtonMatcher.withText("Add")).click();
 		verify(swimmingController).newSwimmer(new Swimmer("1", "test", "Female", "Backstroke"));
 	}
+	
+	@Test
+	public void testRemoveSwimmerButtonShouldCallTheDeleteSwimmerMethodOfTheController() {
+		Swimmer swimmer1 = new Swimmer("1", "test1", "testGender", "testStroke");
+		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> {
+			swimmerSwingView.getListSwimmerModel().addElement(swimmer1);
+			swimmerSwingView.getListSwimmerModel().addElement(swimmer2);
+		});
+		window.list("swimmerList").selectItem(1);
+		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
+		verify(swimmingController).deleteSwimmer(new Swimmer("2", "test2", "testGender", "testStroke"));
+	}
 }
