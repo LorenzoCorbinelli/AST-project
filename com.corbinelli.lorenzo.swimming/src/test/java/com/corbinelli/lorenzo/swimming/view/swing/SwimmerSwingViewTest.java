@@ -1,6 +1,7 @@
 package com.corbinelli.lorenzo.swimming.view.swing;
 
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.swing.annotation.GUITest;
@@ -85,5 +86,14 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		removeButton.requireEnabled();
 		window.list("swimmerList").clearSelection();
 		removeButton.requireDisabled();
+	}
+	
+	@Test
+	public void testShowAllswimmersShouldAddSwimmersToTheList() {
+		Swimmer swimmer1 = new Swimmer("1", "test1", "testGender", "testStroke");
+		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> swimmerSwingView.showAllSwimmers(asList(swimmer1, swimmer2)));
+		String[] contents = window.list("swimmerList").contents();
+		assertThat(contents).containsExactly(swimmer1.toString(), swimmer2.toString());
 	}
 }
