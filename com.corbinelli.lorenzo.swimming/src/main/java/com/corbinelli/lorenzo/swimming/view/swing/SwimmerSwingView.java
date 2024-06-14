@@ -59,20 +59,21 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		setTitle("Swimming App");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 448);
+		setSize(500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 120, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{120, 60, 0, 243, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 145, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblId = new JLabel("id");
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
-		gbc_lblId.fill = GridBagConstraints.VERTICAL;
+		gbc_lblId.anchor = GridBagConstraints.EAST;
 		gbc_lblId.insets = new Insets(0, 0, 5, 5);
 		gbc_lblId.gridx = 0;
 		gbc_lblId.gridy = 0;
@@ -90,8 +91,8 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		txtId.addKeyListener(btnAddEnabler);
 		txtId.setName("idTextBox");
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
-		gbc_txtId.gridwidth = 5;
-		gbc_txtId.insets = new Insets(0, 0, 5, 5);
+		gbc_txtId.gridwidth = 3;
+		gbc_txtId.insets = new Insets(0, 0, 5, 0);
 		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtId.gridx = 1;
 		gbc_txtId.gridy = 0;
@@ -100,6 +101,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		
 		lblName = new JLabel("name");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
+		gbc_lblName.anchor = GridBagConstraints.EAST;
 		gbc_lblName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblName.gridx = 0;
 		gbc_lblName.gridy = 1;
@@ -109,8 +111,8 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		txtName.addKeyListener(btnAddEnabler);
 		txtName.setName("nameTextBox");
 		GridBagConstraints gbc_txtName = new GridBagConstraints();
-		gbc_txtName.gridwidth = 5;
-		gbc_txtName.insets = new Insets(0, 0, 5, 5);
+		gbc_txtName.gridwidth = 3;
+		gbc_txtName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtName.gridx = 1;
 		gbc_txtName.gridy = 1;
@@ -119,6 +121,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		
 		lblGender = new JLabel("gender");
 		GridBagConstraints gbc_lblGender = new GridBagConstraints();
+		gbc_lblGender.anchor = GridBagConstraints.EAST;
 		gbc_lblGender.insets = new Insets(0, 0, 5, 5);
 		gbc_lblGender.gridx = 0;
 		gbc_lblGender.gridy = 2;
@@ -129,6 +132,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		rdBtnMale.setSelected(true);
 		rdBtnMale.setName("rdBtnMale");
 		GridBagConstraints gbc_rdBtnMale = new GridBagConstraints();
+		gbc_rdBtnMale.anchor = GridBagConstraints.WEST;
 		gbc_rdBtnMale.insets = new Insets(0, 0, 5, 5);
 		gbc_rdBtnMale.gridx = 1;
 		gbc_rdBtnMale.gridy = 2;
@@ -142,14 +146,16 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		rdBtnFemale.addKeyListener(btnAddEnabler);
 		rdBtnFemale.setName("rdBtnFemale");
 		GridBagConstraints gbc_rdBtnFemale = new GridBagConstraints();
-		gbc_rdBtnFemale.insets = new Insets(0, 0, 5, 5);
-		gbc_rdBtnFemale.gridx = 2;
+		gbc_rdBtnFemale.anchor = GridBagConstraints.WEST;
+		gbc_rdBtnFemale.insets = new Insets(0, 0, 5, 0);
+		gbc_rdBtnFemale.gridx = 3;
 		gbc_rdBtnFemale.gridy = 2;
 		contentPane.add(rdBtnFemale, gbc_rdBtnFemale);
 		buttonGroup.add(rdBtnFemale);
 		
 		lblMainStroke = new JLabel("main stroke");
 		GridBagConstraints gbc_lblMainStroke = new GridBagConstraints();
+		gbc_lblMainStroke.anchor = GridBagConstraints.EAST;
 		gbc_lblMainStroke.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMainStroke.gridx = 0;
 		gbc_lblMainStroke.gridy = 3;
@@ -159,8 +165,8 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		combBoxStrokes = new JComboBox<>(strokes);
 		combBoxStrokes.setName("strokes");
 		GridBagConstraints gbc_combBoxStrokes = new GridBagConstraints();
-		gbc_combBoxStrokes.insets = new Insets(0, 0, 5, 5);
-		gbc_combBoxStrokes.gridwidth = 5;
+		gbc_combBoxStrokes.insets = new Insets(0, 0, 5, 0);
+		gbc_combBoxStrokes.gridwidth = 3;
 		gbc_combBoxStrokes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_combBoxStrokes.gridx = 1;
 		gbc_combBoxStrokes.gridy = 3;
@@ -177,17 +183,16 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		});
 		btnAdd.setEnabled(false);
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
-		gbc_btnAdd.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAdd.gridwidth = 5;
-		gbc_btnAdd.gridx = 1;
+		gbc_btnAdd.gridwidth = 4;
+		gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAdd.gridx = 0;
 		gbc_btnAdd.gridy = 5;
 		contentPane.add(btnAdd, gbc_btnAdd);
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.anchor = GridBagConstraints.NORTH;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.gridwidth = 6;
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 6;
@@ -201,25 +206,24 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		swimmerList.setName("swimmerList");
 		scrollPane.setColumnHeaderView(swimmerList);
 		
-		btnRemoveSwimmer = new JButton("Remove Swimmer");
-		btnRemoveSwimmer.addActionListener(e -> swimmingController.deleteSwimmer(swimmerList.getSelectedValue()));
-		btnRemoveSwimmer.setEnabled(false);
-		GridBagConstraints gbc_btnRemoveSwimmer = new GridBagConstraints();
-		gbc_btnRemoveSwimmer.gridwidth = 5;
-		gbc_btnRemoveSwimmer.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRemoveSwimmer.gridx = 1;
-		gbc_btnRemoveSwimmer.gridy = 7;
-		contentPane.add(btnRemoveSwimmer, gbc_btnRemoveSwimmer);
-		
 		errorMessageLabel = new JLabel(" ");
 		errorMessageLabel.setName("errorMessageLabel");
 		errorMessageLabel.setForeground(Color.RED);
 		GridBagConstraints gbc_errorMessageLabel = new GridBagConstraints();
-		gbc_errorMessageLabel.gridwidth = 7;
-		gbc_errorMessageLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_errorMessageLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_errorMessageLabel.gridwidth = 4;
 		gbc_errorMessageLabel.gridx = 0;
-		gbc_errorMessageLabel.gridy = 8;
+		gbc_errorMessageLabel.gridy = 7;
 		contentPane.add(errorMessageLabel, gbc_errorMessageLabel);
+		
+		btnRemoveSwimmer = new JButton("Remove Swimmer");
+		btnRemoveSwimmer.addActionListener(e -> swimmingController.deleteSwimmer(swimmerList.getSelectedValue()));
+		btnRemoveSwimmer.setEnabled(false);
+		GridBagConstraints gbc_btnRemoveSwimmer = new GridBagConstraints();
+		gbc_btnRemoveSwimmer.gridwidth = 4;
+		gbc_btnRemoveSwimmer.gridx = 0;
+		gbc_btnRemoveSwimmer.gridy = 8;
+		contentPane.add(btnRemoveSwimmer, gbc_btnRemoveSwimmer);
 	}
 
 	@Override
