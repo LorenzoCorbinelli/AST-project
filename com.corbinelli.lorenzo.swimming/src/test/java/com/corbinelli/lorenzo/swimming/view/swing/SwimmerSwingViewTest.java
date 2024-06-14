@@ -37,6 +37,7 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.textBox("nameTextBox").requireEnabled();
 		window.label(JLabelMatcher.withText("gender"));
 		window.radioButton("rdBtnMale").requireEnabled();
+		window.radioButton("rdBtnMale").requireSelected();
 		window.radioButton("rdBtnFemale").requireEnabled();
 		window.label(JLabelMatcher.withText("main stroke"));
 		window.comboBox("strokes").requireEnabled();
@@ -46,5 +47,12 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.list("swimmerList");
 		window.button(JButtonMatcher.withText("Remove Swimmer")).requireDisabled();
 		window.label("errorMessageLabel").requireText(" ");
+	}
+	
+	@Test
+	public void testWhenIdAndNameAreNotEmptyThenTheAddButtonShouldBeEnabled() {
+		window.textBox("idTextBox").enterText("1");
+		window.textBox("nameTextBox").enterText("test");
+		window.button(JButtonMatcher.withText("Add")).requireEnabled();
 	}
 }
