@@ -226,7 +226,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	@Override
 	public void swimmerAdded(Swimmer swimmer) {
 		listSwimmerModel.addElement(swimmer);
-		errorMessageLabel.setText(" ");
+		resetErrorLabel();
 	}
 
 	@Override
@@ -236,7 +236,12 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 	@Override
 	public void swimmerRemoved(Swimmer swimmer) {
-		
+		listSwimmerModel.removeElement(swimmer);
+		resetErrorLabel();
+	}
+
+	private void resetErrorLabel() {
+		errorMessageLabel.setText(" ");
 	}
 
 }
