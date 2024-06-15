@@ -65,11 +65,9 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 	public void testAddButtonSuccess() {
 		window.textBox("idTextBox").enterText("1");
 		window.textBox("nameTextBox").enterText("test");
-		window.radioButton("rdBtnFemale").click();
-		window.comboBox("strokes").selectItem(1);
 		window.button(JButtonMatcher.withText("Add")).click();
 		assertThat(window.list("swimmerList").contents())
-			.containsExactly(new Swimmer("1", "test", "Female", "Backstroke").toString());
+			.containsExactly(new Swimmer("1", "test", "Male", "Freestyle").toString());
 	}
 	
 	@Test @GUITest
@@ -91,5 +89,15 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		window.list("swimmerList").selectItem(0);
 		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
 		assertThat(window.list("swimmerList").contents()).isEmpty();
+	}
+	
+	@Test @GUITest
+	public void testDeleteButtonError() {
+		Swimmer swimmer = new Swimmer("1", "notPresent", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> swimmerView.getListSwimmerModel().addElement(swimmer));
+		window.list("swimmerList").selectItem(0);
+		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
+		assertThat(window.list("swimmerList").contents()).containsExactly(swimmer.toString());
+		window.label("errorMessageLabel").requireText("No existing swimmer with id 1: " + swimmer);
 	}
 }
