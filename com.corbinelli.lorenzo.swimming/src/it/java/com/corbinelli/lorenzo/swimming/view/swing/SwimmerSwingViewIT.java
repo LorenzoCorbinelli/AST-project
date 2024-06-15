@@ -4,6 +4,7 @@ package com.corbinelli.lorenzo.swimming.view.swing;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.swing.annotation.GUITest;
+import org.assertj.swing.core.matcher.JButtonMatcher;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.junit.testcase.AssertJSwingJUnitTestCase;
@@ -58,5 +59,16 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		GuiActionRunner.execute(() -> swimmingController.allSwimmers());
 		assertThat(window.list("swimmerList").contents())
 			.containsExactly(swimmer1.toString(), swimmer2.toString());
+	}
+	
+	@Test @GUITest
+	public void testAddButtonSuccess() {
+		window.textBox("idTextBox").enterText("1");
+		window.textBox("nameTextBox").enterText("test");
+		window.radioButton("rdBtnFemale").click();
+		window.comboBox("strokes").selectItem(1);
+		window.button(JButtonMatcher.withText("Add")).click();
+		assertThat(window.list("swimmerList").contents())
+			.containsExactly(new Swimmer("1", "test", "Female", "Backstroke").toString());
 	}
 }
