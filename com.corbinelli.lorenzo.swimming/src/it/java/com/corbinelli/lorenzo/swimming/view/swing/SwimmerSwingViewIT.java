@@ -83,4 +83,13 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 			.requireText("Already existing swimmer with id 1: " 
 					+ new Swimmer("1", "existing", "Male", "Freestyle"));
 	}
+	
+	@Test @GUITest
+	public void testDeleteButtonSuccess() {
+		GuiActionRunner.execute(() -> 
+			swimmingController.newSwimmer(new Swimmer("1", "toRemove", "testGender", "testStroke")));
+		window.list("swimmerList").selectItem(0);
+		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
+		assertThat(window.list("swimmerList").contents()).isEmpty();
+	}
 }
