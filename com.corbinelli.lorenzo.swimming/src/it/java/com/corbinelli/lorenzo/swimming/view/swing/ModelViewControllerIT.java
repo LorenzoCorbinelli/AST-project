@@ -54,4 +54,13 @@ public class ModelViewControllerIT extends AssertJSwingJUnitTestCase {
 		window.button(JButtonMatcher.withText("Add")).click();
 		assertThat(swimmerRepository.findById("1")).isEqualTo(new Swimmer("1", "test", "Male", "Freestyle"));
 	}
+	
+	@Test
+	public void testDeleteSwimmer() {
+		swimmerRepository.save(new Swimmer("10", "existing", "testGender", "testStroke"));
+		GuiActionRunner.execute(() -> swimmingController.allSwimmers());
+		window.list("swimmerList").selectItem(0);
+		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
+		assertThat(swimmerRepository.findById("10")).isNull();
+	}
 }
