@@ -1,0 +1,92 @@
+package com.corbinelli.lorenzo.swimming.bdd.steps;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.swing.launcher.ApplicationLauncher.application;
+
+import javax.swing.JFrame;
+
+import org.assertj.swing.core.BasicRobot;
+import org.assertj.swing.core.GenericTypeMatcher;
+import org.assertj.swing.core.matcher.JButtonMatcher;
+import org.assertj.swing.finder.WindowFinder;
+import org.assertj.swing.fixture.FrameFixture;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class SwimmingSwingAppSteps {
+	
+	private static final String DB_NAME = "testDB";
+	private static final String COLLECTION_NAME = "testCollection";
+	private MongoClient client;
+	private FrameFixture window;
+	
+	private static final String SWIMMER_ID_1 = "1";
+	private static final String SWIMMER_NAME_1 = "test1";
+	private static final String SWIMMER_ID_2 = "2";
+	private static final String SWIMMER_NAME_2 = "test2";
+	private static final String SWIMMER_GENDER = "testGender";
+	private static final String SWIMMER_STROKE = "testStroke";
+	
+	@Before
+	public void setUp() {
+		client = new MongoClient();
+		client.getDatabase(DB_NAME).getCollection(COLLECTION_NAME).drop();
+	}
+	
+	@After
+	public void teardown() {
+		client.close();
+	}
+
+	@Given("The database contains some swimmers")
+	public void the_database_contains_some_swimmers() {
+		addSwimmerToTheDB(SWIMMER_ID_1, SWIMMER_NAME_1, SWIMMER_GENDER, SWIMMER_STROKE);
+		addSwimmerToTheDB(SWIMMER_ID_2, SWIMMER_NAME_2, SWIMMER_GENDER, SWIMMER_STROKE);
+	}
+	
+	@Given("The Swimmer View is shown")
+	public void the_swimmer_view_is_shown() {
+		application("com.corbinelli.lorenzo.swimming.app.swing.SwimmingSwingApp")
+			.withArgs(
+					"--db-name=" + DB_NAME,
+					"--db-collection=" + COLLECTION_NAME
+					).start();
+		window = WindowFinder.findFrame(new GenericTypeMatcher<JFrame>(JFrame.class) {
+			@Override
+			protected boolean isMatching(JFrame frame) {
+				return "Swimming App".equals(frame.getTitle()) && frame.isShowing();
+			}
+		}).using(BasicRobot.robotWithCurrentAwtHierarchy());
+	}
+	@Given("The user provides swimmer data")
+	public void the_user_provides_swimmer_data() {
+		window.textBox("idTextBox").enterText("20");
+		window.textBox("nameTextBox").enterText("new swimmer");
+	}
+	@When("The user clicks the {string} button")
+	public void the_user_clicks_the_button(String button) {
+		window.button(JButtonMatcher.withText(button)).click();
+	}
+	@Then("The list contains the new swimmer")
+	public void the_list_contains_the_new_swimmer() {
+		assertThat(window.list("swimmerList").contents())
+			.anySatisfy(e -> assertThat(e).contains("20", "new swimmer", "Male", "Freestyle"));
+	}
+	
+	private void addSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
+		client.getDatabase(DB_NAME).getCollection(COLLECTION_NAME)
+			.insertOne(new Document()
+					.append("id", id)
+					.append("name", name)
+					.append("gender", gender)
+					.append("mainStroke", mainStroke));
+	}
+}
