@@ -44,6 +44,8 @@ public class SwimmingSwingAppSteps {
 	@After
 	public void teardown() {
 		client.close();
+		if(window != null)
+			window.cleanUp();
 	}
 
 	@Given("The database contains some swimmers")
@@ -79,6 +81,17 @@ public class SwimmingSwingAppSteps {
 	public void the_list_contains_the_new_swimmer() {
 		assertThat(window.list("swimmerList").contents())
 			.anySatisfy(e -> assertThat(e).contains("20", "new swimmer", "Male", "Freestyle"));
+	}
+	
+	@Given("The suer provides swimmer data with an existing id")
+	public void the_suer_provides_swimmer_data_with_an_existing_id() {
+		window.textBox("idTextBox").enterText(SWIMMER_ID_1);
+		window.textBox("nameTextBox").enterText("existing swimmer");
+	}
+	
+	@Then("An error is shown containing the name of the existing swimmer")
+	public void an_error_is_shown_containing_the_name_of_the_existing_swimmer() {
+		assertThat(window.label("errorMessageLabel").text()).contains(SWIMMER_NAME_1);
 	}
 	
 	private void addSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
