@@ -19,6 +19,7 @@
     <mongo.version>3.12.14</mongo.version>
     <logback.version>1.5.6</logback.version>
     <testcontainers.version>1.19.8</testcontainers.version>
+    <picocli.version>4.7.6</picocli.version>
   </properties>
 
   <dependencies>
@@ -61,6 +62,11 @@
       <artifactId>mongodb</artifactId>
       <version>${testcontainers.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.picocli</groupId>
+      <artifactId>picocli</artifactId>
+      <version>${picocli.version}</version>
     </dependency>
   </dependencies>
   
