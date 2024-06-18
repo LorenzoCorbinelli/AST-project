@@ -19,3 +19,9 @@ Feature: Swimmer Application Frame
     Given The user selects a swimmer from the list
     When The user clicks the "Remove Swimmer" button
     Then The swimmer is removed from the list
+
+  Scenario: Remove a not existing swimmer
+    Given The user selects a swimmer from the list
+    But The swimmer is in the meantime removed from the database
+    When The user clicks the "Remove Swimmer" button
+    Then An error is shown containing the name of the selected swimmer

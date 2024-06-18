@@ -3,6 +3,7 @@ package com.corbinelli.lorenzo.swimming.bdd.steps;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.model.Filters;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.swing.launcher.ApplicationLauncher.application;
@@ -103,6 +104,17 @@ public class SwimmingSwingAppSteps {
 	public void the_swimmer_is_removed_from_the_list() {
 		assertThat(window.list("swimmerList").contents())
 			.noneMatch(e -> e.contains(SWIMMER_NAME_1));
+	}
+	
+	@Given("The swimmer is in the meantime removed from the database")
+	public void the_swimmer_is_in_the_meantime_removed_from_the_database() {
+		client.getDatabase(DB_NAME).getCollection(COLLECTION_NAME)
+			.deleteOne(Filters.eq("id", SWIMMER_ID_1));
+	}
+
+	@Then("An error is shown containing the name of the selected swimmer")
+	public void an_error_is_shown_containing_the_name_of_the_selected_swimmer() {
+		assertThat(window.label("errorMessageLabel").text()).contains(SWIMMER_NAME_1);
 	}
 	
 	private void addSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
