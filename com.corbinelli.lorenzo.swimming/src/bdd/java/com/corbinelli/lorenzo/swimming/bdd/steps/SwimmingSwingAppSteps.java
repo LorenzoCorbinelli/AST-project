@@ -94,6 +94,17 @@ public class SwimmingSwingAppSteps {
 		assertThat(window.label("errorMessageLabel").text()).contains(SWIMMER_NAME_1);
 	}
 	
+	@Given("The user selects a swimmer from the list")
+	public void the_user_selects_a_swimmer_from_the_list() {
+		window.list("swimmerList").selectItem(".*" + SWIMMER_NAME_1 + ".*");
+	}
+
+	@Then("The swimmer is removed from the list")
+	public void the_swimmer_is_removed_from_the_list() {
+		assertThat(window.list("swimmerList").contents())
+			.noneMatch(e -> e.contains(SWIMMER_NAME_1));
+	}
+	
 	private void addSwimmerToTheDB(String id, String name, String gender, String mainStroke) {
 		client.getDatabase(DB_NAME).getCollection(COLLECTION_NAME)
 			.insertOne(new Document()
