@@ -20,6 +20,7 @@
     <logback.version>1.5.6</logback.version>
     <testcontainers.version>1.19.8</testcontainers.version>
     <picocli.version>4.7.6</picocli.version>
+    <cucumber.version>7.18.0</cucumber.version>
   </properties>
 
   <dependencies>
@@ -67,6 +68,18 @@
       <groupId>info.picocli</groupId>
       <artifactId>picocli</artifactId>
       <version>${picocli.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   
@@ -122,7 +135,21 @@
             <configuration>
               <sources>
                 <source>src/it/java</source>
+                <source>src/bdd/java</source>
               </sources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-test-resources</id>
+            <goals>
+              <goal>add-test-resource</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>src/bdd/resources</directory>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
@@ -133,10 +160,26 @@
         <version>3.2.5</version>
         <executions>
           <execution>
+            <id>default-IT</id>
             <goals>
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
+          </execution>
+          <execution>
+            <id>BDD-tests</id>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <excludes>
+                <exclude>**/*IT.java</exclude>
+              </excludes>
+              <includes>
+                <include>**/*BDD.java</include>
+              </includes>
+            </configuration>
           </execution>
         </executions>
       </plugin>
