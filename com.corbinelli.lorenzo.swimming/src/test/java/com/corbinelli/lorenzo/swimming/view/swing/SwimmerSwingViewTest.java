@@ -166,6 +166,19 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 	}
 	
 	@Test
+	public void testAddButtonShouldClearTheForm() {
+		window.textBox("idTextBox").enterText("1");
+		window.textBox("nameTextBox").enterText("test");
+		window.radioButton("rdBtnFemale").click();
+		window.comboBox("strokes").selectItem(1);
+		window.button(JButtonMatcher.withText("Add")).click();
+		window.textBox("idTextBox").requireText("");
+		window.textBox("nameTextBox").requireText("");
+		window.radioButton("rdBtnMale").requireSelected();
+		window.comboBox("strokes").requireSelection(0);
+	}
+	
+	@Test
 	public void testRemoveSwimmerButtonShouldCallTheDeleteSwimmerMethodOfTheController() {
 		Swimmer swimmer1 = new Swimmer("1", "test1", "testGender", "testStroke");
 		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");
