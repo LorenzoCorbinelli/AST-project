@@ -53,8 +53,17 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		this.swimmingController = swimmingController;
 	}
 
+	public SwimmingController getSwimmingController() {
+		return swimmingController;
+	}
+
 	DefaultListModel<Swimmer> getListSwimmerModel() {
 		return listSwimmerModel;
+	}
+	
+	public void start() {
+		setVisible(true);
+		swimmingController.allSwimmers();
 	}
 
 	public SwimmerSwingView() {
