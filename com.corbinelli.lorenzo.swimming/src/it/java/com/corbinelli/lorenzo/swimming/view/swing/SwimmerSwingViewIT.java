@@ -97,7 +97,7 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		GuiActionRunner.execute(() -> swimmerView.getListSwimmerModel().addElement(swimmer));
 		window.list("swimmerList").selectItem(0);
 		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
-		assertThat(window.list("swimmerList").contents()).containsExactly(swimmer.toString());
+		assertThat(window.list("swimmerList").contents()).isEmpty();
 		window.label("errorMessageLabel").requireText("No existing swimmer with id 1: " + swimmer);
 	}
 }
