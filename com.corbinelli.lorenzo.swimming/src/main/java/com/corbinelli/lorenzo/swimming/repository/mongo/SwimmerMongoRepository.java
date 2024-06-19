@@ -6,8 +6,11 @@ import java.util.stream.StreamSupport;
 
 import org.bson.Document;
 
+import com.corbinelli.lorenzo.swimming.guice.MongoCollectionName;
+import com.corbinelli.lorenzo.swimming.guice.MongoDBName;
 import com.corbinelli.lorenzo.swimming.model.Swimmer;
 import com.corbinelli.lorenzo.swimming.repository.SwimmerRepository;
+import com.google.inject.Inject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
@@ -16,7 +19,9 @@ public class SwimmerMongoRepository implements SwimmerRepository {
 	
 	private MongoCollection<Document> swimmerCollection;
 
-	public SwimmerMongoRepository(MongoClient client, String dbName, String collectionName) {
+	@Inject
+	public SwimmerMongoRepository(MongoClient client, 
+			@MongoDBName String dbName, @MongoCollectionName String collectionName) {
 		swimmerCollection = client.getDatabase(dbName).getCollection(collectionName);
 	}
 
