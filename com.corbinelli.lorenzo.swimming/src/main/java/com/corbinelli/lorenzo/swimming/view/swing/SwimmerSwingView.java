@@ -248,6 +248,12 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		resetErrorLabel();
 	}
 
+	@Override
+	public void showErrorSwimmerNotFound(String message, Swimmer swimmer) {
+		errorMessageLabel.setText(message + ": " + swimmer);
+		listSwimmerModel.removeElement(swimmer);
+	}
+	
 	private void resetErrorLabel() {
 		errorMessageLabel.setText(" ");
 	}
