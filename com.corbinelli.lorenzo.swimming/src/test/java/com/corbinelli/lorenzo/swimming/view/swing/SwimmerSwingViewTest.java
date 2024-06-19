@@ -108,16 +108,15 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");
 		GuiActionRunner.execute(() -> swimmerSwingView.showAllSwimmers(asList(swimmer1, swimmer2)));
 		String[] contents = window.list("swimmerList").contents();
-		assertThat(contents).containsExactly(swimmer1.toString(), swimmer2.toString());
+		assertThat(contents).containsExactly("1, test1, testGender, testStroke", "2, test2, testGender, testStroke");
 	}
 	
 	@Test
 	public void testSwimmerAddedShouldAddTheSwimmerToTheListAndResetTheErrorLabel() {
-		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
 		GuiActionRunner.execute(() -> 
 			swimmerSwingView.swimmerAdded(new Swimmer("1", "test", "testGender", "testStroke")));
 		String[] contents = window.list("swimmerList").contents();
-		assertThat(contents).containsExactly(swimmer.toString());
+		assertThat(contents).containsExactly("1, test, testGender, testStroke");
 		window.label("errorMessageLabel").requireText(" ");
 	}
 	
@@ -125,7 +124,20 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 	public void testSwimmerShowErrorShouldSetTheMessageInTheErrorLabel() {
 		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
 		GuiActionRunner.execute(() -> swimmerSwingView.showError("error message", swimmer));
-		window.label("errorMessageLabel").requireText("error message: " + swimmer);
+		window.label("errorMessageLabel").requireText("error message: 1, test, testGender, testStroke");
+	}
+	
+	@Test
+	public void testShowErrorSwimmerNotFound() {
+		Swimmer swimmer1 = new Swimmer("1", "test1", "testGender", "testStroke");
+		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> {
+			swimmerSwingView.getListSwimmerModel().addElement(swimmer1);
+			swimmerSwingView.getListSwimmerModel().addElement(swimmer2);
+		});
+		GuiActionRunner.execute(() -> swimmerSwingView.showErrorSwimmerNotFound("error message", swimmer1));
+		window.label("errorMessageLabel").requireText("error message: 1, test1, testGender, testStroke");
+		assertThat(window.list("swimmerList").contents()).containsExactly("2, test2, testGender, testStroke");
 	}
 	
 	@Test
@@ -139,7 +151,7 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		GuiActionRunner.execute(() -> 
 			swimmerSwingView.swimmerRemoved(new Swimmer("2", "test2", "testGender", "testStroke")));
 		String[] contents = window.list("swimmerList").contents();
-		assertThat(contents).containsExactly(swimmer1.toString());
+		assertThat(contents).containsExactly("1, test1, testGender, testStroke");
 		window.label("errorMessageLabel").requireText(" ");
 	}
 	
@@ -151,6 +163,20 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.comboBox("strokes").selectItem(1);
 		window.button(JButtonMatcher.withText("Add")).click();
 		verify(swimmingController).newSwimmer(new Swimmer("1", "test", "Female", "Backstroke"));
+	}
+	
+	@Test
+	public void testAddButtonShouldClearTheForm() {
+		window.textBox("idTextBox").enterText("1");
+		window.textBox("nameTextBox").enterText("test");
+		window.radioButton("rdBtnFemale").click();
+		window.comboBox("strokes").selectItem(1);
+		window.button(JButtonMatcher.withText("Add")).click();
+		window.textBox("idTextBox").requireText("");
+		window.textBox("nameTextBox").requireText("");
+		window.radioButton("rdBtnMale").requireSelected();
+		window.comboBox("strokes").requireSelection(0);
+		window.button(JButtonMatcher.withText("Add")).requireDisabled();
 	}
 	
 	@Test

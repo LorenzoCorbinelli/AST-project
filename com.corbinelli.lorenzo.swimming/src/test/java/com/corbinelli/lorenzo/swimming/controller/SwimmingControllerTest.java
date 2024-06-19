@@ -87,7 +87,7 @@ public class SwimmingControllerTest {
 		Swimmer swimmer = new Swimmer("1", "test", "testGender", "testStroke");
 		when(swimmerRepository.findById("1")).thenReturn(null);
 		swimmingController.deleteSwimmer(swimmer);
-		verify(swimmerView).showError("No existing swimmer with id 1", swimmer);
+		verify(swimmerView).showErrorSwimmerNotFound("No existing swimmer with id 1", swimmer);
 		verifyNoMoreInteractions(ignoreStubs(swimmerRepository));
 	}
 
