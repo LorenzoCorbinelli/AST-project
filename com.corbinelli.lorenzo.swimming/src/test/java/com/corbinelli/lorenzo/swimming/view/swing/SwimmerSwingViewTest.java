@@ -129,6 +129,19 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 	}
 	
 	@Test
+	public void testShowErrorSwimmerNotFound() {
+		Swimmer swimmer1 = new Swimmer("1", "test1", "testGender", "testStroke");
+		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> {
+			swimmerSwingView.getListSwimmerModel().addElement(swimmer1);
+			swimmerSwingView.getListSwimmerModel().addElement(swimmer2);
+		});
+		GuiActionRunner.execute(() -> swimmerSwingView.showErrorSwimmerNotFound("error message", swimmer1));
+		window.label("errorMessageLabel").requireText("error message: " + swimmer1);
+		assertThat(window.list("swimmerList").contents()).containsExactly(swimmer2.toString());
+	}
+	
+	@Test
 	public void testSwimmerRemovedShouldRemoveTheSwimmerFromTheListAndResetTheErrorLabel() {
 		Swimmer swimmer1 = new Swimmer("1", "test1", "testGender", "testStroke");
 		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");

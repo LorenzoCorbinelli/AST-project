@@ -25,3 +25,4 @@ Feature: Swimmer Application Frame
     But The swimmer is in the meantime removed from the database
     When The user clicks the "Remove Swimmer" button
     Then An error is shown containing the name of the selected swimmer
+    And The swimmer is removed from the list
