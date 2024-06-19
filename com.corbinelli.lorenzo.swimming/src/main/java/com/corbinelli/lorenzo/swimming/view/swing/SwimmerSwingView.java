@@ -186,6 +186,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 			txtName.setText("");
 			rdBtnMale.setSelected(true);
 			combBoxStrokes.setSelectedIndex(0);
+			btnAdd.setEnabled(false);
 		});
 		btnAdd.setEnabled(false);
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();

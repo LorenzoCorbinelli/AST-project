@@ -176,6 +176,7 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.textBox("nameTextBox").requireText("");
 		window.radioButton("rdBtnMale").requireSelected();
 		window.comboBox("strokes").requireSelection(0);
+		window.button(JButtonMatcher.withText("Add")).requireDisabled();
 	}
 	
 	@Test
