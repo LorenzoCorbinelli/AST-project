@@ -5,11 +5,9 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.corbinelli.lorenzo.swimming.controller.SwimmingController;
-import com.corbinelli.lorenzo.swimming.repository.mongo.SwimmerMongoRepository;
+import com.corbinelli.lorenzo.swimming.guice.SwimmingSwingMongoDefaultModule;
 import com.corbinelli.lorenzo.swimming.view.swing.SwimmerSwingView;
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
+import com.google.inject.Guice;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -38,15 +36,14 @@ public class SwimmingSwingApp implements Callable<Void>{
 	public Void call() throws Exception {
 		EventQueue.invokeLater(() -> {
 			try {
-				SwimmerMongoRepository swimmerRepository = 
-						new SwimmerMongoRepository(
-								new MongoClient(new ServerAddress(mongoHost, mongoPort)), 
-								databaseName, collectionName);
-				SwimmerSwingView swimmerSwingView = new SwimmerSwingView();
-				SwimmingController swimmingController = new SwimmingController(swimmerSwingView, swimmerRepository);
-				swimmerSwingView.setSwimmingController(swimmingController);
-				swimmerSwingView.setVisible(true);
-				swimmingController.allSwimmers();
+				Guice.createInjector(
+						new SwimmingSwingMongoDefaultModule()
+						.mongoHost(mongoHost)
+						.mongoPort(mongoPort)
+						.databaseName(databaseName)
+						.collectionName(collectionName))
+				.getInstance(SwimmerSwingView.class)
+				.start();
 			} catch(Exception e) {
 				Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
 			}
