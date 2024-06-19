@@ -13,32 +13,41 @@ import org.junit.Test;
 import org.testcontainers.containers.MongoDBContainer;
 
 import com.corbinelli.lorenzo.swimming.controller.SwimmingController;
+import com.corbinelli.lorenzo.swimming.guice.SwimmingSwingMongoDefaultModule;
 import com.corbinelli.lorenzo.swimming.model.Swimmer;
 import com.corbinelli.lorenzo.swimming.repository.mongo.SwimmerMongoRepository;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
 
 public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 	
 	@ClassRule
 	public static final MongoDBContainer mongo = new MongoDBContainer("mongo:4.4.3");
+	@Inject
 	private MongoClient client;
 	private FrameFixture window;
+	@Inject
 	private SwimmerSwingView swimmerView;
+	@Inject
 	private SwimmerMongoRepository swimmerRepository;
 	private SwimmingController swimmingController;
 
 	@Override
 	protected void onSetUp() throws Exception {
-		client = new MongoClient(new ServerAddress(mongo.getHost(), mongo.getFirstMappedPort()));
-		swimmerRepository = new SwimmerMongoRepository(client, "testDB", "testCollection");
-		for (Swimmer swimmer : swimmerRepository.findAll()) {
-			swimmerRepository.delete(swimmer.getId());
-		}
+		Injector injector = Guice.createInjector(
+				new SwimmingSwingMongoDefaultModule()
+				.mongoHost(mongo.getHost())
+				.mongoPort(mongo.getFirstMappedPort())
+				.databaseName("testDB")
+				.collectionName("testCollection"));
 		GuiActionRunner.execute(() -> {
-			swimmerView = new SwimmerSwingView();
-			swimmingController = new SwimmingController(swimmerView, swimmerRepository);
-			swimmerView.setSwimmingController(swimmingController);
+			injector.injectMembers(this);
+			for (Swimmer swimmer : swimmerRepository.findAll()) {
+				swimmerRepository.delete(swimmer.getId());
+			}
+			swimmingController = swimmerView.getSwimmingController();
 			return swimmerView;
 		});
 		window = new FrameFixture(robot(), swimmerView);
