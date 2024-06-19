@@ -1,6 +1,7 @@
 package com.corbinelli.lorenzo.swimming.view.swing;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -25,6 +26,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ListSelectionModel;
+import javax.swing.DefaultListCellRenderer;
 
 public class SwimmerSwingView extends JFrame implements SwimmerView {
 
@@ -200,6 +202,16 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		
 		listSwimmerModel = new DefaultListModel<>();
 		swimmerList = new JList<>(listSwimmerModel);
+		swimmerList.setCellRenderer(new DefaultListCellRenderer() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				Swimmer swimmer = (Swimmer)value;
+				return super.getListCellRendererComponent(
+						list, displayString(swimmer), index, isSelected, cellHasFocus);
+			}
+		});
 		swimmerList.addListSelectionListener(arg0 -> 
 			btnRemoveSwimmer.setEnabled(swimmerList.getSelectedIndex() != -1));
 		swimmerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -239,7 +251,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 	@Override
 	public void showError(String message, Swimmer swimmer) {
-		errorMessageLabel.setText(message + ": " + swimmer);
+		errorMessageLabel.setText(message + ": " + displayString(swimmer));
 	}
 
 	@Override
@@ -250,12 +262,19 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 	@Override
 	public void showErrorSwimmerNotFound(String message, Swimmer swimmer) {
-		errorMessageLabel.setText(message + ": " + swimmer);
+		errorMessageLabel.setText(message + ": " + displayString(swimmer));
 		listSwimmerModel.removeElement(swimmer);
 	}
 	
 	private void resetErrorLabel() {
 		errorMessageLabel.setText(" ");
+	}
+	
+	private String displayString(Swimmer swimmer) {
+		return swimmer.getId() + ", " + 
+				swimmer.getName() + ", " + 
+				swimmer.getGender() + ", " + 
+				swimmer.getMainStroke();
 	}
 
 }

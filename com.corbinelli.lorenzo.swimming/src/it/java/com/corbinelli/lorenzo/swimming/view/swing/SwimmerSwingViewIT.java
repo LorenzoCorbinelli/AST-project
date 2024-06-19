@@ -58,7 +58,7 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		swimmerRepository.save(swimmer2);
 		GuiActionRunner.execute(() -> swimmingController.allSwimmers());
 		assertThat(window.list("swimmerList").contents())
-			.containsExactly(swimmer1.toString(), swimmer2.toString());
+			.containsExactly("1, test1, testGender, testStroke", "2, test2, testGender, testStroke");
 	}
 	
 	@Test @GUITest
@@ -67,7 +67,7 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		window.textBox("nameTextBox").enterText("test");
 		window.button(JButtonMatcher.withText("Add")).click();
 		assertThat(window.list("swimmerList").contents())
-			.containsExactly(new Swimmer("1", "test", "Male", "Freestyle").toString());
+			.containsExactly("1, test, Male, Freestyle");
 	}
 	
 	@Test @GUITest
@@ -78,8 +78,7 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		window.button(JButtonMatcher.withText("Add")).click();
 		assertThat(window.list("swimmerList").contents()).isEmpty();
 		window.label("errorMessageLabel")
-			.requireText("Already existing swimmer with id 1: " 
-					+ new Swimmer("1", "existing", "Male", "Freestyle"));
+			.requireText("Already existing swimmer with id 1: 1, existing, Male, Freestyle");
 	}
 	
 	@Test @GUITest
@@ -98,6 +97,6 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		window.list("swimmerList").selectItem(0);
 		window.button(JButtonMatcher.withText("Remove Swimmer")).click();
 		assertThat(window.list("swimmerList").contents()).isEmpty();
-		window.label("errorMessageLabel").requireText("No existing swimmer with id 1: " + swimmer);
+		window.label("errorMessageLabel").requireText("No existing swimmer with id 1: 1, notPresent, testGender, testStroke");
 	}
 }
