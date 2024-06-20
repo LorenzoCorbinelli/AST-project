@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 import javax.swing.DefaultListCellRenderer;
 
 public class SwimmerSwingView extends JFrame implements SwimmerView {
@@ -47,7 +48,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 	private JButton btnRemoveSwimmer;
 	private JLabel errorMessageLabel;
 	
-	private SwimmingController swimmingController;
+	private transient SwimmingController swimmingController;
 
 	public void setSwimmingController(SwimmingController swimmingController) {
 		this.swimmingController = swimmingController;
@@ -68,7 +69,7 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 
 	public SwimmerSwingView() {
 		setTitle("Swimming App");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 448);
 		setSize(500, 400);
 		contentPane = new JPanel();

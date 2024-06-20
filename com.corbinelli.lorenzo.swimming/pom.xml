@@ -31,6 +31,20 @@
       ${project.build.directory}/surefire-reports,
       ${project.build.directory}/failsafe-reports
     </sonar.junit.reportPaths>
+    
+    <sonar.issue.ignore.multicriteria>e11, e12</sonar.issue.ignore.multicriteria>
+    <sonar.issue.ignore.multicriteria.e11.ruleKey>
+      java:S2699
+    </sonar.issue.ignore.multicriteria.e11.ruleKey>
+    <sonar.issue.ignore.multicriteria.e11.resourceKey>
+      **/SwimmerSwingViewTest.java
+    </sonar.issue.ignore.multicriteria.e11.resourceKey>
+    <sonar.issue.ignore.multicriteria.e12.ruleKey>
+      java:S117
+    </sonar.issue.ignore.multicriteria.e12.ruleKey>
+    <sonar.issue.ignore.multicriteria.e12.resourceKey>
+      **/SwimmerSwingView.java
+    </sonar.issue.ignore.multicriteria.e12.resourceKey>
   </properties>
 
   <dependencies>
