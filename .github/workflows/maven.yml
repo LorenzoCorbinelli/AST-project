@@ -12,11 +12,15 @@ jobs:
         include:
           - java: 11
             additional-maven-args: >
-              -Pjacoco 
               -DrepoToken=$COVERALLS_REPO_TOKEN 
               -DpullRequest=${{github.event.pull_request.number}}
               coveralls:report
           - java: 17
+            additional-maven-args: >
+              sonar:sonar
+              -Dsonar.organization=lorenzocorbinelli
+              -Dsonar.projectKey=LorenzoCorbinelli_AST-project
+              -Dsonar.host.url=https://sonarcloud.io
 
     name: Build with Java ${{matrix.java}}
     steps:
@@ -28,11 +32,15 @@ jobs:
     - name: Cache Maven packages
       uses: actions/cache@v2
       with:
-        path: ~/.m2
+        path: |
+          ~/.m2
+          ~/.sonar/cache
         key: ${{runner.os}}-m2-${{hashFiles('**/pom.xml', '**/*.yml')}}
         restore-keys: ${{runner.os}}-m2-
     - name: Build with Maven
-      run: xvfb-run mvn verify ${{matrix.additional-maven-args}}
+      run: xvfb-run mvn verify -Pjacoco ${{matrix.additional-maven-args}}
       env:
         COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_TOKEN}}
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
       working-directory: com.corbinelli.lorenzo.swimming

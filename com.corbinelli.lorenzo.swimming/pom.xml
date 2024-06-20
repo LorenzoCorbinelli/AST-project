@@ -22,6 +22,15 @@
     <picocli.version>4.7.6</picocli.version>
     <cucumber.version>5.5.0</cucumber.version>
     <guice.version>7.0.0</guice.version>
+    
+    <sonar.coverage.exclusions>
+      **/model/*.*,
+      **/SwimmingSwingApp.*
+    </sonar.coverage.exclusions>
+    <sonar.junit.reportPaths>
+      ${project.build.directory}/surefire-reports,
+      ${project.build.directory}/failsafe-reports
+    </sonar.junit.reportPaths>
   </properties>
 
   <dependencies>
@@ -127,6 +136,11 @@
               <version>2.3.1</version>
             </dependency>
           </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>4.0.0.4121</version>
         </plugin>
       </plugins>
     </pluginManagement>
