@@ -281,6 +281,13 @@ public class SwimmerSwingView extends JFrame implements SwimmerView {
 		listSwimmerModel.removeElement(swimmer);
 	}
 	
+	@Override
+	public void showErrorSwimmerAlreadyPresent(String message, Swimmer existingSwimmer) {
+		errorMessageLabel.setText(message + ": " + displayString(existingSwimmer));
+		if(!listSwimmerModel.contains(existingSwimmer))
+			listSwimmerModel.addElement(existingSwimmer);
+	}
+	
 	private void resetErrorLabel() {
 		errorMessageLabel.setText(" ");
 	}
