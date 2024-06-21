@@ -141,6 +141,25 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 	}
 	
 	@Test
+	public void testShowErrorSwimmerAlreadyPresent() {
+		Swimmer swimmerInTheList = new Swimmer("1", "in the list", "testGender", "testStroke");
+		Swimmer swimmerNotInTheList = new Swimmer("2", "not in the list", "testGender", "testStroke");
+		GuiActionRunner.execute(() -> {
+			swimmerSwingView.getListSwimmerModel().addElement(swimmerInTheList);
+		});
+		GuiActionRunner.execute(() -> 
+			swimmerSwingView.showErrorSwimmerAlreadyPresent("error message", swimmerNotInTheList));
+		window.label("errorMessageLabel").requireText("error message: 2, not in the list, testGender, testStroke");
+		assertThat(window.list("swimmerList").contents()).contains("2, not in the list, testGender, testStroke");
+		
+		GuiActionRunner.execute(() -> 
+			swimmerSwingView.showErrorSwimmerAlreadyPresent("error message", swimmerInTheList));
+		window.label("errorMessageLabel").requireText("error message: 1, in the list, testGender, testStroke");
+		assertThat(window.list("swimmerList").contents())
+			.containsOnlyOnce("1, in the list, testGender, testStroke");
+	}
+	
+	@Test
 	public void testSwimmerRemovedShouldRemoveTheSwimmerFromTheListAndResetTheErrorLabel() {
 		Swimmer swimmer1 = new Swimmer("1", "test1", "testGender", "testStroke");
 		Swimmer swimmer2 = new Swimmer("2", "test2", "testGender", "testStroke");

@@ -16,4 +16,6 @@ public interface SwimmerView {
 
 	public void showErrorSwimmerNotFound(String message, Swimmer swimmer);
 
+	public void showErrorSwimmerAlreadyPresent(String message, Swimmer existingSwimmer);
+
 }

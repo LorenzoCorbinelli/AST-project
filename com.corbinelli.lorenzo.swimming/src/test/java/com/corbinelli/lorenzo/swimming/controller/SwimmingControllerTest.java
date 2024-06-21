@@ -68,7 +68,7 @@ public class SwimmingControllerTest {
 		Swimmer swimmerToAdd = new Swimmer("1", "test", "testGender", "testStroke");
 		when(swimmerRepository.findById("1")).thenReturn(existingSwimmer);
 		swimmingController.newSwimmer(swimmerToAdd);
-		verify(swimmerView).showError("Already existing swimmer with id 1", existingSwimmer);
+		verify(swimmerView).showErrorSwimmerAlreadyPresent("Already existing swimmer with id 1", existingSwimmer);
 		verifyNoMoreInteractions(ignoreStubs(swimmerRepository));
 	}
 	
