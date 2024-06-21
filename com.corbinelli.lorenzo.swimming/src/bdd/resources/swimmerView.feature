@@ -14,6 +14,7 @@ Feature: Swimmer Application Frame
     Given The suer provides swimmer data with an existing id
     When The user clicks the "Add" button
     Then An error is shown containing the name of the existing swimmer
+    And The swimmer is added to the list if not already present
 
   Scenario: Remove a swimmer
     Given The user selects a swimmer from the list

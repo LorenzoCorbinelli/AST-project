@@ -1,11 +1,13 @@
 package com.corbinelli.lorenzo.swimming.bdd.steps;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.swing.launcher.ApplicationLauncher.application;
-import static com.corbinelli.lorenzo.swimming.bdd.steps.DatabaseSteps.DB_NAME;
 import static com.corbinelli.lorenzo.swimming.bdd.steps.DatabaseSteps.COLLECTION_NAME;
+import static com.corbinelli.lorenzo.swimming.bdd.steps.DatabaseSteps.DB_NAME;
 import static com.corbinelli.lorenzo.swimming.bdd.steps.DatabaseSteps.SWIMMER_ID_1;
 import static com.corbinelli.lorenzo.swimming.bdd.steps.DatabaseSteps.SWIMMER_NAME_1;
+import static com.corbinelli.lorenzo.swimming.bdd.steps.DatabaseSteps.SWIMMER_GENDER;
+import static com.corbinelli.lorenzo.swimming.bdd.steps.DatabaseSteps.SWIMMER_STROKE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.swing.launcher.ApplicationLauncher.application;
 
 import javax.swing.JFrame;
 
@@ -70,6 +72,12 @@ public class SwimmingSwingViewSteps {
 	@Then("An error is shown containing the name of the existing swimmer")
 	public void an_error_is_shown_containing_the_name_of_the_existing_swimmer() {
 		assertThat(window.label("errorMessageLabel").text()).contains(SWIMMER_NAME_1);
+	}
+	
+	@Then("The swimmer is added to the list if not already present")
+	public void the_swimmer_is_added_to_the_list_if_not_already_present() {
+		assertThat(window.list("swimmerList").contents())
+			.containsOnlyOnce(SWIMMER_ID_1 + ", " +  SWIMMER_NAME_1 + ", " + SWIMMER_GENDER + ", " + SWIMMER_STROKE);
 	}
 	
 	@Given("The user selects a swimmer from the list")
