@@ -85,7 +85,7 @@ public class SwimmerSwingViewIT extends AssertJSwingJUnitTestCase {
 		window.textBox("idTextBox").enterText("1");
 		window.textBox("nameTextBox").enterText("test");
 		window.button(JButtonMatcher.withText("Add")).click();
-		assertThat(window.list("swimmerList").contents()).isEmpty();
+		assertThat(window.list("swimmerList").contents()).containsExactly("1, existing, Male, Freestyle");
 		window.label("errorMessageLabel")
 			.requireText("Already existing swimmer with id 1: 1, existing, Male, Freestyle");
 	}
