@@ -94,8 +94,7 @@ public class SwimmerMongoRepositoryTest {
 				.append("id", id)
 				.append("name", name)
 				.append("gender", gender)
-				.append("mainStroke", mainStroke)
-				);
+				.append("mainStroke", mainStroke));
 	}
 	
 	private List<Swimmer> readAllSwimmersFromTheDB() {

@@ -58,6 +58,7 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		window.radioButton("rdBtnMale").requireEnabled();
 		window.radioButton("rdBtnMale").requireSelected();
 		window.radioButton("rdBtnFemale").requireEnabled();
+		window.radioButton("rdBtnFemale").requireNotSelected();
 		window.label(JLabelMatcher.withText("main stroke"));
 		window.comboBox("strokes").requireEnabled();
 		assertThat(window.comboBox("strokes").contents())
@@ -150,13 +151,16 @@ public class SwimmerSwingViewTest extends AssertJSwingJUnitTestCase {
 		GuiActionRunner.execute(() -> 
 			swimmerSwingView.showErrorSwimmerAlreadyPresent("error message", swimmerNotInTheList));
 		window.label("errorMessageLabel").requireText("error message: 2, not in the list, testGender, testStroke");
-		assertThat(window.list("swimmerList").contents()).contains("2, not in the list, testGender, testStroke");
+		assertThat(window.list("swimmerList").contents())
+			.containsExactly("1, in the list, testGender, testStroke", 
+					"2, not in the list, testGender, testStroke");
 		
 		GuiActionRunner.execute(() -> 
 			swimmerSwingView.showErrorSwimmerAlreadyPresent("error message", swimmerInTheList));
 		window.label("errorMessageLabel").requireText("error message: 1, in the list, testGender, testStroke");
 		assertThat(window.list("swimmerList").contents())
-			.containsOnlyOnce("1, in the list, testGender, testStroke");
+			.containsExactly("1, in the list, testGender, testStroke", 
+				"2, not in the list, testGender, testStroke");
 	}
 	
 	@Test
