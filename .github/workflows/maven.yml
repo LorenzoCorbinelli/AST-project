@@ -18,6 +18,7 @@ jobs:
               org.pitest:pitest-maven:mutationCoverage
           - java: 17
             additional-maven-args: >
+              -Pjacoco
               sonar:sonar
               -Dsonar.organization=lorenzocorbinelli
               -Dsonar.projectKey=LorenzoCorbinelli_AST-project
