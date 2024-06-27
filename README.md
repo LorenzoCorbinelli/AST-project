@@ -1,3 +1,6 @@
+# Swimming App
+Implemented a simple application to manage the registration of swimmers into a races manager system
+
 [![Java CI with Maven on Linux](https://github.com/LorenzoCorbinelli/AST-project/actions/workflows/maven.yml/badge.svg)](https://github.com/LorenzoCorbinelli/AST-project/actions/workflows/maven.yml)
 [![Coverage Status](https://coveralls.io/repos/github/LorenzoCorbinelli/AST-project/badge.svg?branch=main)](https://coveralls.io/github/LorenzoCorbinelli/AST-project?branch=main)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LorenzoCorbinelli_AST-project&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LorenzoCorbinelli_AST-project)
