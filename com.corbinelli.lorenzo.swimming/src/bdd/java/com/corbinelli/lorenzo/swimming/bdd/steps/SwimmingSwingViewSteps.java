@@ -63,8 +63,8 @@ public class SwimmingSwingViewSteps {
 			.anySatisfy(e -> assertThat(e).contains("20", "new swimmer", "Male", "Freestyle"));
 	}
 	
-	@Given("The suer provides swimmer data with an existing id")
-	public void the_suer_provides_swimmer_data_with_an_existing_id() {
+	@Given("The user provides swimmer data with an existing id")
+	public void the_user_provides_swimmer_data_with_an_existing_id() {
 		window.textBox("idTextBox").enterText(SWIMMER_ID_1);
 		window.textBox("nameTextBox").enterText("existing swimmer");
 	}

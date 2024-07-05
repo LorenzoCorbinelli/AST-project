@@ -11,7 +11,7 @@ Feature: Swimmer Application Frame
     Then The list contains the new swimmer
 
   Scenario: Add a new swimmer with an existing id
-    Given The suer provides swimmer data with an existing id
+    Given The user provides swimmer data with an existing id
     When The user clicks the "Add" button
     Then An error is shown containing the name of the existing swimmer
     And The swimmer is added to the list if not already present
